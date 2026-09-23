@@ -1,149 +1,48 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#090b14">
-<title>AnimeCross Finder</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080a12"><title>AnimeCross Finder</title>
 <style>
-:root{--bg:#080a12;--panel:#111522;--panel2:#171b2b;--text:#f5f7ff;--muted:#9299b4;--line:#272d43;--a:#9b6cff;--b:#ff4fb3;--good:#64e7a5;}
-*{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at 20% 0%,#1b1632 0,#080a12 42%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
-button,input{font:inherit} button{cursor:pointer} .wrap{max-width:1180px;margin:auto;padding:22px}
-header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:10px 0 28px}
-.logo{font-weight:900;font-size:22px;letter-spacing:-.7px} .logo span{color:#b184ff} .pill{border:1px solid var(--line);background:#101423;border-radius:999px;padding:8px 12px;color:#b9c0d8;font-size:12px}
-.hero{text-align:center;padding:48px 12px 32px} .hero h1{font-size:clamp(40px,8vw,78px);line-height:.95;margin:0 0 18px;letter-spacing:-4px}
-.hero h1 i{font-style:normal;background:linear-gradient(90deg,#a879ff,#ff5ab7);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);font-size:16px;max-width:680px;margin:0 auto 25px}
-.search{max-width:760px;margin:auto;display:flex;gap:9px;padding:8px;border:1px solid #343a54;background:#0e1220;border-radius:18px;box-shadow:0 15px 50px #0008}
-.search input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;padding:15px;font-size:16px}
-.search button{border:0;border-radius:13px;padding:0 22px;color:white;font-weight:800;background:linear-gradient(135deg,#805cff,#e94da8)}
-.notice{max-width:760px;margin:14px auto 0;color:#858da8;font-size:12px}
-.section{margin-top:35px} .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
-.section h2{margin:0;font-size:22px} .count{color:var(--muted);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
-.card{background:linear-gradient(180deg,#151a2a,#0e1220);border:1px solid var(--line);border-radius:17px;padding:15px;min-height:160px;display:flex;flex-direction:column;transition:.2s}
-.card:hover{transform:translateY(-3px);border-color:#65518e} .poster{height:90px;border-radius:12px;background:linear-gradient(135deg,#272044,#201526);display:flex;align-items:center;justify-content:center;font-size:34px;margin-bottom:12px}
-.title{font-weight:800;font-size:14px;line-height:1.25} .meta{font-size:11px;color:var(--muted);margin-top:5px;min-height:28px}
-.actions{display:flex;gap:7px;margin-top:auto;padding-top:10px} .watch,.info{border:0;border-radius:10px;padding:9px 10px;font-size:11px;font-weight:800}
-.watch{flex:1;background:#fff;color:#10121b} .info{background:#20263a;color:#cfd5e9}
-.empty{display:none;text-align:center;color:var(--muted);padding:40px;border:1px dashed var(--line);border-radius:18px}
-.modal{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}
-.modal.show{display:flex} .modal-box{width:min(560px,100%);background:#111522;border:1px solid #343b57;border-radius:20px;padding:22px;box-shadow:0 25px 80px #000b}
-.modal-box h3{margin:0 0 8px} .modal-box p{color:var(--muted);line-height:1.55} .sources{display:grid;gap:9px;margin:18px 0} .source{display:flex;justify-content:space-between;align-items:center;gap:12px;background:#181d2d;border:1px solid var(--line);border-radius:13px;padding:12px}
-.source b{font-size:13px} .source small{display:block;color:var(--muted);margin-top:3px} .source a{text-decoration:none;color:#fff;background:#7b5cff;padding:9px 12px;border-radius:9px;font-size:11px;font-weight:800}
-.close{border:1px solid var(--line);background:#171c2b;color:#fff;border-radius:10px;padding:10px 14px}
-footer{padding:45px 0 20px;text-align:center;color:#686f88;font-size:11px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){.wrap{padding:15px} header{padding-bottom:15px} .hero{padding:35px 5px 25px} .hero h1{letter-spacing:-2.5px} .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px} .card{padding:11px} .poster{height:80px} .search button{padding:0 15px}}
+:root{--bg:#080a12;--panel:#111522;--text:#f5f7ff;--muted:#9299b4;--line:#272d43}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#1b1632,#080a12 45%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+button,input{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:20px}
+header{display:flex;justify-content:space-between;align-items:center;padding:10px 0 25px;gap:10px}.logo{font-size:22px;font-weight:900}.logo span{color:#b184ff}.pill{font-size:12px;color:#bdc4da;border:1px solid var(--line);padding:8px 12px;border-radius:999px}
+.hero{text-align:center;padding:45px 8px 25px}h1{font-size:clamp(42px,8vw,78px);line-height:.95;letter-spacing:-4px;margin:0 0 18px}h1 i{font-style:normal;background:linear-gradient(90deg,#a879ff,#ff5ab7);-webkit-background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:700px;margin:0 auto 24px}
+.search{max-width:760px;margin:auto;display:flex;gap:8px;padding:8px;background:#0e1220;border:1px solid #343a54;border-radius:18px}.search input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;padding:15px;font-size:16px}.search button{border:0;border-radius:13px;padding:0 22px;color:#fff;font-weight:900;background:linear-gradient(135deg,#805cff,#e94da8)}
+.notice{max-width:760px;margin:12px auto;color:#777f99;font-size:12px;line-height:1.5}
+.section{margin-top:30px}.head{display:flex;justify-content:space-between;margin-bottom:13px}h2{margin:0;font-size:22px}.count{color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.card{background:linear-gradient(180deg,#151a2a,#0e1220);border:1px solid var(--line);border-radius:17px;padding:14px;min-height:160px;display:flex;flex-direction:column}.poster{height:85px;border-radius:12px;background:linear-gradient(135deg,#292148,#211528);display:flex;align-items:center;justify-content:center;font-size:33px;margin-bottom:11px}.title{font-weight:800;font-size:14px;line-height:1.25}.meta{font-size:11px;color:var(--muted);margin-top:5px}.actions{margin-top:auto;padding-top:10px}.watch{width:100%;border:0;border-radius:10px;padding:10px;background:#fff;color:#10121b;font-size:11px;font-weight:900}
+.empty{display:none;text-align:center;color:var(--muted);padding:42px;border:1px dashed var(--line);border-radius:18px}
+.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.show{display:flex}.box{width:min(620px,100%);max-height:90vh;overflow:auto;background:#111522;border:1px solid #343b57;border-radius:20px;padding:21px}.box h3{margin:0 0 7px}.box p{color:var(--muted);line-height:1.5;font-size:13px}.sources{display:grid;gap:9px;margin:17px 0}.source{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#181d2d;border:1px solid var(--line);border-radius:13px;padding:12px}.source b{font-size:13px}.source small{display:block;color:var(--muted);margin-top:3px}.source a{text-decoration:none;color:#fff;background:#7657ff;padding:9px 12px;border-radius:9px;font-size:11px;font-weight:900}.close{border:1px solid var(--line);background:#171c2b;color:#fff;border-radius:10px;padding:10px 14px}
+footer{padding:42px 0 20px;text-align:center;color:#626a83;font-size:11px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.wrap{padding:14px}.grid{grid-template-columns:repeat(2,1fr);gap:9px}.card{padding:11px}.poster{height:78px}h1{letter-spacing:-2.5px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">300+ anime • smart watch finder</div></header>
-<main>
+<header><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">Direct provider finder</div></header>
 <section class="hero">
 <h1>Find anime.<br><i>Watch it.</i></h1>
-<p>Search AnimeCross and get useful legal viewing options without being dumped onto a generic web search.</p>
-<div class="search">
-<input id="q" autocomplete="off" spellcheck="false" placeholder="Search any anime…">
-<button id="searchBtn">Search</button>
-</div>
-<div class="notice">Availability can change by country and over time. AnimeCross opens the relevant legal viewing page.</div>
+<p>Search AnimeCross first. Choose a provider directly from AnimeCross — no Google results and no JustWatch detour.</p>
+<div class="search"><input id="q" autocomplete="off" spellcheck="false" placeholder="Search any anime…"><button id="searchBtn">Search</button></div>
+<div class="notice">Provider catalogs vary by country and change over time. AnimeCross opens the provider directly so you can confirm availability there.</div>
 </section>
-
-<section class="section">
-<div class="section-head"><h2 id="heading">Popular anime</h2><div class="count" id="count"></div></div>
-<div id="empty" class="empty">No matching anime found. Try another title.</div>
-<div id="grid" class="grid"></div>
-</section>
-</main>
-<footer>AnimeCross Finder • static GitHub Pages edition</footer>
+<section class="section"><div class="head"><h2 id="heading">Popular anime</h2><div class="count" id="count"></div></div><div id="empty" class="empty">No matching anime found. Try another title.</div><div id="grid" class="grid"></div></section>
+<footer>AnimeCross Finder • GitHub Pages • Direct provider links</footer>
 </div>
-
-<div class="modal" id="modal">
-<div class="modal-box">
-<h3 id="modalTitle"></h3>
-<p id="modalText"></p>
-<div class="sources" id="sources"></div>
-<button class="close" id="close">Close</button>
-</div>
-</div>
-
+<div class="modal" id="modal"><div class="box"><h3 id="modalTitle"></h3><p>These buttons go directly to official provider websites. AnimeCross does not pretend a static catalog can verify live regional availability.</p><div id="sources" class="sources"></div><button id="close" class="close">Close</button></div></div>
 <script>
 const TITLES=["One Piece", "Naruto", "Naruto Shippuden", "Boruto: Naruto Next Generations", "Bleach", "Bleach: Thousand-Year Blood War", "Dragon Ball", "Dragon Ball Z", "Dragon Ball Super", "Dragon Ball GT", "Demon Slayer", "Jujutsu Kaisen", "My Hero Academia", "Solo Leveling", "Attack on Titan", "Hunter x Hunter", "Fullmetal Alchemist: Brotherhood", "Death Note", "Black Clover", "Fairy Tail", "One Punch Man", "Mob Psycho 100", "Chainsaw Man", "Tokyo Ghoul", "Blue Exorcist", "Fire Force", "Dr. Stone", "JoJo's Bizarre Adventure", "Yu Yu Hakusho", "Yu-Gi-Oh!", "Inuyasha", "Rurouni Kenshin", "Trigun", "Samurai Champloo", "Cowboy Bebop", "Code Geass", "Neon Genesis Evangelion", "Gurren Lagann", "Kill la Kill", "Akame ga Kill!", "Soul Eater", "Noragami", "Seraph of the End", "The Seven Deadly Sins", "Magi: The Labyrinth of Magic", "Overlord", "That Time I Got Reincarnated as a Slime", "The Rising of the Shield Hero", "Re:ZERO", "Konosuba", "Is It Wrong to Try to Pick Up Girls in a Dungeon?", "Sword Art Online", "Log Horizon", "The Misfit of Demon King Academy", "Jobless Reincarnation", "The Eminence in Shadow", "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat", "Arifureta", "Goblin Slayer", "Made in Abyss", "Vinland Saga", "Berserk", "Claymore", "Dororo", "Hellsing Ultimate", "Fate/Zero", "Fate/stay night: Unlimited Blade Works", "Fate/Apocrypha", "Fate/Grand Order - Absolute Demonic Front", "86 Eighty-Six", "Vivy: Fluorite Eye's Song", "Cyberpunk: Edgerunners", "Lycoris Recoil", "Kaiju No. 8", "Wind Breaker", "Sakamoto Days", "Dandadan", "DAN DA DAN", "Hell's Paradise", "Mashle: Magic and Muscles", "Undead Unluck", "Ragna Crimson", "The God of High School", "Tower of God", "Bungo Stray Dogs", "Durarara!!", "Baccano!", "Great Pretender", "Megalobox", "Hajime no Ippo", "Kengan Ashura", "Baki", "Baki Hanma", "Record of Ragnarok", "Blue Lock", "Haikyuu!!", "Kuroko's Basketball", "Slam Dunk", "Ace of Diamond", "Yuri on Ice", "Free!", "Run with the Wind", "SK8 the Infinity", "Ao Ashi", "Captain Tsubasa", "Initial D", "MF Ghost", "Overtake!", "Ping Pong the Animation", "The Prince of Tennis", "Food Wars!", "Dr. Stone: New World", "Cells at Work!", "Cells at Work! CODE BLACK", "The Apothecary Diaries", "Frieren: Beyond Journey's End", "Delicious in Dungeon", "Ranking of Kings", "The Ancient Magus' Bride", "To Your Eternity", "Mushoku Tensei: Jobless Reincarnation", "Spice and Wolf", "The Faraway Paladin", "Ascendance of a Bookworm", "Somali and the Forest Spirit", "Natsume's Book of Friends", "Violet Evergarden", "A Silent Voice", "Your Lie in April", "Anohana: The Flower We Saw That Day", "Clannad", "Clannad: After Story", "Toradora!", "Kaguya-sama: Love Is War", "Horimiya", "My Dress-Up Darling", "Rascal Does Not Dream of Bunny Girl Senpai", "Oregairu", "Golden Time", "Lovely Complex", "Kimi ni Todoke", "Fruits Basket", "Fruits Basket (2019)", "Maid Sama!", "Ouran High School Host Club", "Wotakoi: Love Is Hard for Otaku", "Monthly Girls' Nozaki-kun", "Tomo-chan Is a Girl!", "Komi Can't Communicate", "The Dangers in My Heart", "Insomniacs After School", "Skip and Loafer", "A Sign of Affection", "My Love Story with Yamada-kun at Lv999", "Blue Spring Ride", "Orange", "Scum's Wish", "Domestic Girlfriend", "Rent-a-Girlfriend", "Nisekoi", "Quintessential Quintuplets", "We Never Learn", "Oshi no Ko", "SPY x FAMILY", "Kakushigoto", "Buddy Daddies", "Barakamon", "Hinamatsuri", "Nichijou", "K-On!", "Lucky Star", "Bocchi the Rock!", "Azumanga Daioh", "Daily Lives of High School Boys", "Grand Blue", "Gintama", "Saiki K.", "The Disastrous Life of Saiki K.", "Nichijou: My Ordinary Life", "Asobi Asobase", "Sleepy Princess in the Demon Castle", "Non Non Biyori", "Yuru Camp", "A Place Further Than the Universe", "Do It Yourself!!", "New Game!", "Gabriel DropOut", "Miss Kobayashi's Dragon Maid", "Laid-Back Camp", "Konohana Kitan", "Flying Witch", "Aria the Animation", "Mushishi", "Girls' Last Tour", "Sound! Euphonium", "March Comes in Like a Lion", "Silver Spoon", "Hyouka", "The Melancholy of Haruhi Suzumiya", "The Pet Girl of Sakurasou", "Tsuki ga Kirei", "Just Because!", "ReLIFE", "Plastic Memories", "Angel Beats!", "Charlotte", "Kokoro Connect", "Ano Natsu de Matteru", "Bloom Into You", "Adachi and Shimamura", "Sakura Trick", "Strawberry Marshmallow", "Pokemon", "Digimon Adventure", "Digimon Tamers", "Beyblade", "Bakugan Battle Brawlers", "Cardcaptor Sakura", "Sailor Moon", "Sailor Moon Crystal", "Pretty Cure", "Inazuma Eleven", "Medabots", "Shaman King", "Shaman King (2021)", "D.Gray-man", "Katekyo Hitman Reborn!", "World Trigger", "Toriko", "Beelzebub", "Assassination Classroom", "Classroom of the Elite", "The Irregular at Magic High School", "Blue Period", "Great Teacher Onizuka", "GTO: Great Teacher Onizuka", "Parasyte: The Maxim", "Ajin", "Erased", "Steins;Gate", "Steins;Gate 0", "Psycho-Pass", "Monster", "Pluto", "Serial Experiments Lain", "Ergo Proxy", "Texhnolyze", "Terror in Resonance", "Odd Taxi", "Sonny Boy", "Heavenly Delusion", "Summer Time Rendering", "Link Click", "Devilman Crybaby", "Dorohedoro", "Golden Kamuy", "Drifters", "Black Lagoon", "Jormungand", "Gangsta.", "91 Days", "Banana Fish", "Moriarty the Patriot", "The Case Study of Vanitas", "Undead Girl Murder Farce", "The Millionaire Detective Balance: UNLIMITED", "ID:INVADED", "Deca-Dence", "Akudama Drive", "Aldnoah.Zero", "Darling in the Franxx", "Promare", "Eighty Six", "Astra Lost in Space", "Space Dandy", "Planetes", "Legend of the Galactic Heroes", "Mobile Suit Gundam", "Mobile Suit Gundam: Iron-Blooded Orphans", "Mobile Suit Gundam: The Witch from Mercury", "Gundam 00", "Gundam SEED", "Macross Frontier", "Eureka Seven", "FLCL", "RahXephon", "Knights of Sidonia", "Kabaneri of the Iron Fortress", "Godzilla Singular Point", "Beastars", "Land of the Lustrous", "Houseki no Kuni", "Aggretsuko", "Carole & Tuesday", "Keep Your Hands Off Eizouken!", "Shirobako", "Bakuman", "Blue Giant", "The Great Passage", "Chihayafuru", "Yowamushi Pedal", "Tsurune", "Stars Align", "Ballroom e Youkoso", "Welcome to the Ballroom", "Baby Steps", "Major", "Major 2nd", "Hikaru no Go", "Initial D First Stage", "Initial D Second Stage", "Initial D Third Stage", "Initial D Fourth Stage", "Initial D Fifth Stage", "Initial D Final Stage", "Solo Leveling Season 2", "Demon Slayer: Entertainment District Arc", "Demon Slayer: Swordsmith Village Arc", "Demon Slayer: Hashira Training Arc", "Jujutsu Kaisen 0", "Jujutsu Kaisen Season 2", "Attack on Titan Final Season", "My Hero Academia: Vigilantes", "My Hero Academia Season 7", "One Punch Man Season 2", "One Punch Man Season 3", "Black Clover: Sword of the Wizard King", "Bleach: The Final Arc", "SPY x FAMILY Season 2", "The Apothecary Diaries Season 2", "Blue Lock Season 2", "Fire Force Season 2", "Dr. Stone: Science Future", "Re:ZERO Season 3", "That Time I Got Reincarnated as a Slime Season 3", "Kaiju No. 8 Season 2", "Wind Breaker Season 2", "Dandadan Season 2", "My Happy Marriage", "The Elusive Samurai", "The Wrong Way to Use Healing Magic", "The Unwanted Undead Adventurer", "The Ossan Newbie Adventurer", "Failure Frame", "The Strongest Magician in the Demon Lord's Army Was a Human", "Wistoria: Wand and Sword", "The Beginning After the End", "The Shiunji Family Children", "The Brilliant Healer's New Life in the Shadows", "Fire Force Season 3", "Zom 100: Bucket List of the Dead", "The Fable", "Metallic Rouge", "Mission: Yozakura Family", "The Duke of Death and His Maid", "Toilet-Bound Hanako-kun", "Toilet-Bound Hanako-kun 2", "The Summer Hikaru Died", "The Fragrant Flower Blooms with Dignity", "Medalist", "Witch Hat Atelier"];
-const q=document.getElementById('q'), grid=document.getElementById('grid'), empty=document.getElementById('empty');
-const heading=document.getElementById('heading'), count=document.getElementById('count');
-const modal=document.getElementById('modal'), modalTitle=document.getElementById('modalTitle'), modalText=document.getElementById('modalText'), sources=document.getElementById('sources');
-let current=[...TITLES];
-
-const fallbackEmoji=["🍥","⚔️","🔥","🌙","✨","🌀","👑","💫","🥷","🌸"];
-
-function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function render(items) {
-  current=items;
-  grid.innerHTML="";
-  count.textContent=items.length+" result"+(items.length===1?"":"s");
-  empty.style.display=items.length?"none":"block";
-  items.slice(0,80).forEach((title,i)=>{
-    const card=document.createElement("article"); card.className="card";
-    const initial=title.trim().charAt(0).toUpperCase();
-    card.innerHTML=`<div class="poster">${fallbackEmoji[i%fallbackEmoji.length]}</div>
-      <div class="title">${esc(title)}</div>
-      <div class="meta">Anime • availability may vary by region</div>
-      <div class="actions"><button class="watch" data-watch="${esc(title)}">▶ Watch</button><button class="info" data-info="${esc(title)}">Info</button></div>`;
-    grid.appendChild(card);
-  });
-}
-function search() {
-  const term=q.value.trim().toLowerCase();
-  const results=term?TITLES.filter(x=>x.toLowerCase().includes(term)):TITLES;
-  heading.textContent=term?`Results for “${q.value.trim()}”`:"Popular anime";
-  render(results);
-}
-document.getElementById("searchBtn").addEventListener("click",search);
-q.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();search()}});
-
-function playSfx(){
-  try {
-    const a=new Audio("redirect.wav");
-    a.volume=.55;
-    a.play().catch(()=>{});
-  } catch(e){}
-}
-
-function watch(title){
-  playSfx();
-  // Google is intentionally NOT exposed in the UI.
-  // JustWatch is used as the public availability finder because availability is region/time dependent.
-  const url="https://www.justwatch.com/in/search?q="+encodeURIComponent(title);
-  const w=window.open(url,"_blank","noopener,noreferrer");
-  if(!w) location.href=url;
-}
-
-function showInfo(title){
-  modalTitle.textContent=title;
-  modalText.textContent="AnimeCross keeps the public interface focused on useful viewing options. Availability changes by region, so the Watch button opens a legal availability page for this title.";
-  sources.innerHTML="";
-  const providers=[
-    ["JustWatch","Current availability by region", "https://www.justwatch.com/in/search?q="+encodeURIComponent(title)],
-    ["Crunchyroll","Official anime streaming site", "https://www.crunchyroll.com/search?q="+encodeURIComponent(title)],
-    ["YouTube","Official-channel results", "https://www.youtube.com/results?search_query="+encodeURIComponent(title+" official anime")]
-  ];
-  providers.forEach(([name,desc,url])=>{
-    const el=document.createElement("div"); el.className="source";
-    el.innerHTML=`<div><b>${esc(name)}</b><small>${esc(desc)}</small></div><a href="${url}" target="_blank" rel="noopener noreferrer">Open</a>`;
-    sources.appendChild(el);
-  });
-  modal.classList.add("show");
-}
-grid.addEventListener("click",e=>{
-  const w=e.target.closest("[data-watch]"), i=e.target.closest("[data-info]");
-  if(w) watch(w.dataset.watch);
-  if(i) showInfo(i.dataset.info);
-});
-document.getElementById("close").onclick=()=>modal.classList.remove("show");
-modal.addEventListener("click",e=>{if(e.target===modal)modal.classList.remove("show")});
-render(TITLES);
+const PROVIDERS=[["Crunchyroll", "https://www.crunchyroll.com/search?q=", "Official Crunchyroll search"], ["Netflix", "https://www.netflix.com/search?q=", "Official Netflix search"], ["Amazon Prime Video", "https://www.primevideo.com/search/ref=atv_nb_sr?phrase=", "Official Prime Video search"], ["YouTube", "https://www.youtube.com/results?search_query=", "Official YouTube search"], ["Amazon MX Player", "https://www.mxplayer.in/search?query=", "Official MX Player search"], ["Sony LIV", "https://www.sonyliv.com/search?query=", "Official Sony LIV search"], ["JioHotstar", "https://www.hotstar.com/in/search?q=", "Official JioHotstar search"]];
+const icons=["🍥","⚔️","🔥","🌙","✨","🌀","👑","💫","🥷","🌸"];
+const q=document.getElementById("q"),grid=document.getElementById("grid"),empty=document.getElementById("empty"),heading=document.getElementById("heading"),count=document.getElementById("count"),modal=document.getElementById("modal"),modalTitle=document.getElementById("modalTitle"),sources=document.getElementById("sources");
+function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]);}
+function render(items){grid.innerHTML="";count.textContent=items.length+" result"+(items.length===1?"":"s");empty.style.display=items.length?"none":"block";items.slice(0,100).forEach((title,i)=>{const c=document.createElement("article");c.className="card";c.innerHTML=`<div class="poster">${icons[i%icons.length]}</div><div class="title">${esc(title)}</div><div class="meta">Direct official-provider links</div><div class="actions"><button class="watch" data-title="${esc(title)}">▶ Where to watch</button></div>`;grid.appendChild(c);});}
+function search(){const t=q.value.trim().toLowerCase();const r=t?TITLES.filter(x=>x.toLowerCase().includes(t)):TITLES;heading.textContent=t?`Results for “${q.value.trim()}”`:"Popular anime";render(r);}
+document.getElementById("searchBtn").onclick=search;q.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();search()}};
+function sfx(){try{const a=new Audio("redirect.wav");a.volume=.55;a.play().catch(()=>{})}catch(e){}}
+function show(title){modalTitle.textContent=title;sources.innerHTML="";PROVIDERS.forEach(p=>{const url=p[1]+encodeURIComponent(title),el=document.createElement("div");el.className="source";el.innerHTML=`<div><b>${esc(p[0])}</b><small>${esc(p[2])}</small></div><a href="${url}" target="_blank" rel="noopener noreferrer">Open</a>`;sources.appendChild(el)});modal.classList.add("show")}
+grid.onclick=e=>{const b=e.target.closest("[data-title]");if(b)show(b.dataset.title)};sources.onclick=e=>{if(e.target.closest("a"))sfx()};document.getElementById("close").onclick=()=>modal.classList.remove("show");modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};render(TITLES);
 </script>
-</body>
-</html>
+</body></html>

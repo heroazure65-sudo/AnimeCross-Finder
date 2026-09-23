@@ -1,19 +1,18 @@
-AnimeCross Finder v2
+AnimeCross Finder v3
 
-Changes:
-- Removed the visible Google Search fallback.
-- Watch buttons now open a legal availability finder (JustWatch) directly.
-- Added redirect sound effect support.
-- Added 300+ built-in anime titles.
-- Search works locally and does not close the Android keyboard while typing.
-- No API key, server, npm, or backend required.
+- Google and JustWatch are removed from the user flow.
+- Search happens inside AnimeCross.
+- "Where to watch" opens direct official provider websites.
+- Redirect sound is included.
+- 300+ built-in anime titles remain.
 - GitHub Pages compatible.
 
-Install:
-1. Replace your repository's existing index.html with this index.html.
-2. Put redirect.wav in the same repository folder.
-3. Commit the changes.
-4. GitHub Pages will redeploy automatically.
+Important technical note:
+A static GitHub Pages site cannot securely perform live, cross-provider availability
+verification. This version therefore does not falsely claim a provider has a title;
+it opens the provider directly with the title prefilled.
 
-Important:
-Streaming availability is region-dependent and can change. The Watch button therefore opens the current legal availability page for the selected anime instead of pretending a static provider list is always accurate.
+For a truly automatic version that returns only currently available providers,
+AnimeCross needs a streaming-availability API/backend. Watchmode currently advertises
+a free non-commercial developer plan with 2,500 monthly credits and up to 3 countries,
+but it requires an API account/key and has attribution and usage requirements.
