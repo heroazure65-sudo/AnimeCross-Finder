@@ -1,11 +1,19 @@
-AnimeCross Finder — GitHub Pages edition
+AnimeCross Finder v2
 
-1. Create a PUBLIC repository named AnimeCross-Finder.
-2. Upload index.html to the repository root.
-3. Open Settings -> Pages.
-4. Choose Deploy from a branch.
-5. Branch: main; folder: / (root); Save.
-6. GitHub will publish your github.io URL.
+Changes:
+- Removed the visible Google Search fallback.
+- Watch buttons now open a legal availability finder (JustWatch) directly.
+- Added redirect sound effect support.
+- Added 300+ built-in anime titles.
+- Search works locally and does not close the Android keyboard while typing.
+- No API key, server, npm, or backend required.
+- GitHub Pages compatible.
 
-No server, npm, API key, or paid hosting is required.
-Watch buttons search the web for current legal/official streaming availability because licensing changes by country and time.
+Install:
+1. Replace your repository's existing index.html with this index.html.
+2. Put redirect.wav in the same repository folder.
+3. Commit the changes.
+4. GitHub Pages will redeploy automatically.
+
+Important:
+Streaming availability is region-dependent and can change. The Watch button therefore opens the current legal availability page for the selected anime instead of pretending a static provider list is always accurate.
