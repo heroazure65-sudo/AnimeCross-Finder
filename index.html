@@ -1,48 +1,123 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080a12"><title>AnimeCross Finder</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AnimeCross Finder</title>
 <style>
-:root{--bg:#080a12;--panel:#111522;--text:#f5f7ff;--muted:#9299b4;--line:#272d43}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 20% 0%,#1b1632,#080a12 45%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
-button,input{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:20px}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 0 25px;gap:10px}.logo{font-size:22px;font-weight:900}.logo span{color:#b184ff}.pill{font-size:12px;color:#bdc4da;border:1px solid var(--line);padding:8px 12px;border-radius:999px}
-.hero{text-align:center;padding:45px 8px 25px}h1{font-size:clamp(42px,8vw,78px);line-height:.95;letter-spacing:-4px;margin:0 0 18px}h1 i{font-style:normal;background:linear-gradient(90deg,#a879ff,#ff5ab7);-webkit-background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:700px;margin:0 auto 24px}
-.search{max-width:760px;margin:auto;display:flex;gap:8px;padding:8px;background:#0e1220;border:1px solid #343a54;border-radius:18px}.search input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#fff;padding:15px;font-size:16px}.search button{border:0;border-radius:13px;padding:0 22px;color:#fff;font-weight:900;background:linear-gradient(135deg,#805cff,#e94da8)}
-.notice{max-width:760px;margin:12px auto;color:#777f99;font-size:12px;line-height:1.5}
-.section{margin-top:30px}.head{display:flex;justify-content:space-between;margin-bottom:13px}h2{margin:0;font-size:22px}.count{color:var(--muted);font-size:12px}
-.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.card{background:linear-gradient(180deg,#151a2a,#0e1220);border:1px solid var(--line);border-radius:17px;padding:14px;min-height:160px;display:flex;flex-direction:column}.poster{height:85px;border-radius:12px;background:linear-gradient(135deg,#292148,#211528);display:flex;align-items:center;justify-content:center;font-size:33px;margin-bottom:11px}.title{font-weight:800;font-size:14px;line-height:1.25}.meta{font-size:11px;color:var(--muted);margin-top:5px}.actions{margin-top:auto;padding-top:10px}.watch{width:100%;border:0;border-radius:10px;padding:10px;background:#fff;color:#10121b;font-size:11px;font-weight:900}
-.empty{display:none;text-align:center;color:var(--muted);padding:42px;border:1px dashed var(--line);border-radius:18px}
-.modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:20}.modal.show{display:flex}.box{width:min(620px,100%);max-height:90vh;overflow:auto;background:#111522;border:1px solid #343b57;border-radius:20px;padding:21px}.box h3{margin:0 0 7px}.box p{color:var(--muted);line-height:1.5;font-size:13px}.sources{display:grid;gap:9px;margin:17px 0}.source{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#181d2d;border:1px solid var(--line);border-radius:13px;padding:12px}.source b{font-size:13px}.source small{display:block;color:var(--muted);margin-top:3px}.source a{text-decoration:none;color:#fff;background:#7657ff;padding:9px 12px;border-radius:9px;font-size:11px;font-weight:900}.close{border:1px solid var(--line);background:#171c2b;color:#fff;border-radius:10px;padding:10px 14px}
-footer{padding:42px 0 20px;text-align:center;color:#626a83;font-size:11px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:600px){.wrap{padding:14px}.grid{grid-template-columns:repeat(2,1fr);gap:9px}.card{padding:11px}.poster{height:78px}h1{letter-spacing:-2.5px}}
+:root{--bg:#070812;--panel:#101222;--line:#292c48;--text:#f6f5ff;--muted:#9b9db8;--a:#9b5cff;--b:#ff4fc3}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#20113d 0,#070812 38%);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:28px 18px 60px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.logo{font-size:28px;font-weight:900;letter-spacing:-1px}.logo span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;color:transparent}
+.pill{border:1px solid var(--line);padding:10px 14px;border-radius:999px;color:#c9c7da}
+.hero{text-align:center;padding:70px 0 35px}.hero h1{font-size:clamp(44px,9vw,82px);line-height:.95;margin:0;font-weight:950;letter-spacing:-4px}.hero h1 span{background:linear-gradient(90deg,#9e5cff,#ff4fc3);-webkit-background-clip:text;color:transparent}.hero p{color:var(--muted);font-size:18px;line-height:1.5;max-width:700px;margin:28px auto}
+.search{display:flex;gap:10px;max-width:720px;margin:0 auto;background:#0d0f1d;border:1px solid #353856;border-radius:24px;padding:8px;box-shadow:0 0 50px #7e4dff18}
+.search input{min-width:0;flex:1;background:transparent;border:0;outline:0;color:#fff;font-size:18px;padding:16px}.search button,.watch{border:0;border-radius:17px;padding:15px 22px;font-weight:900;color:#fff;background:linear-gradient(100deg,#9a55ff,#ef4fb9);cursor:pointer}
+.note{text-align:center;color:#8588a6;font-size:14px;margin:16px auto 0}
+h2{font-size:30px;margin:42px 0 18px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.card{background:linear-gradient(180deg,#111326,#0c0e19);border:1px solid var(--line);border-radius:20px;padding:17px;display:flex;flex-direction:column;min-height:210px}
+.card h3{margin:0 0 8px;font-size:21px}.meta{color:#8f92ae;font-size:13px;min-height:38px}.sources{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.source{font-size:12px;border:1px solid #343750;border-radius:999px;padding:7px 9px;color:#d4d4e2}.verified{border-color:#6742a0}.actions{margin-top:auto;display:flex;gap:8px}.watch{flex:1;text-align:center;text-decoration:none}.searchprov{border:1px solid #343750;background:#171a2b;color:#ddd;border-radius:14px;padding:12px 10px;text-decoration:none;text-align:center;font-weight:800}
+.empty{border:1px dashed #343750;border-radius:20px;padding:28px;text-align:center;color:#9b9db8}.small{font-size:12px;color:#777b99;margin-top:10px}
+footer{text-align:center;color:#666a87;margin-top:50px}
+@media(max-width:600px){.wrap{padding:20px 14px}.top{align-items:flex-start}.logo{font-size:24px}.pill{font-size:12px}.hero{padding:55px 0 25px}.search{border-radius:20px}.search input{width:100%;font-size:16px}.search button{padding:13px 16px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">Direct provider finder • Fixed</div></header>
+<header class="top"><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">Verified-first finder</div></header>
 <section class="hero">
-<h1>Find anime.<br><i>Watch it.</i></h1>
-<p>Search AnimeCross first. Choose a provider directly from AnimeCross — no Google results and no JustWatch detour.</p>
-<div class="search"><input id="q" autocomplete="off" spellcheck="false" placeholder="Search any anime…"><button id="searchBtn">Search</button></div>
-<div class="notice">Provider catalogs vary by country and change over time. AnimeCross opens the provider directly so you can confirm availability there.</div>
+<h1>Find anime.<br><span>Watch it.</span></h1>
+<p>Search AnimeCross first. We only label a provider as <b>direct</b> when we have an actual title page. Otherwise, you get the provider's own search page instead of a broken link.</p>
+<div class="search"><input id="q" autocomplete="off" placeholder="Search any anime..." aria-label="Search anime"><button id="go">Search</button></div>
+<div class="note">No JustWatch redirect. No random provider homepages. No fake “available” claims.</div>
 </section>
-<section class="section"><div class="head"><h2 id="heading">Popular anime</h2><div class="count" id="count"></div></div><div id="empty" class="empty">No matching anime found. Try another title.</div><div id="grid" class="grid"></div></section>
-<footer>AnimeCross Finder • GitHub Pages • Direct provider links</footer>
+<h2 id="title">Popular anime</h2><div id="grid" class="grid"></div>
+<footer>AnimeCross Finder • GitHub Pages • Direct/verified provider links</footer>
 </div>
-<div class="modal" id="modal"><div class="box"><h3 id="modalTitle"></h3><p>These buttons go directly to official provider websites. AnimeCross does not pretend a static catalog can verify live regional availability.</p><div id="sources" class="sources"></div><button id="close" class="close">Close</button></div></div>
 <script>
-const TITLES=["One Piece", "Naruto", "Naruto Shippuden", "Boruto: Naruto Next Generations", "Bleach", "Bleach: Thousand-Year Blood War", "Dragon Ball", "Dragon Ball Z", "Dragon Ball Super", "Dragon Ball GT", "Demon Slayer", "Jujutsu Kaisen", "My Hero Academia", "Solo Leveling", "Attack on Titan", "Hunter x Hunter", "Fullmetal Alchemist: Brotherhood", "Death Note", "Black Clover", "Fairy Tail", "One Punch Man", "Mob Psycho 100", "Chainsaw Man", "Tokyo Ghoul", "Blue Exorcist", "Fire Force", "Dr. Stone", "JoJo's Bizarre Adventure", "Yu Yu Hakusho", "Yu-Gi-Oh!", "Inuyasha", "Rurouni Kenshin", "Trigun", "Samurai Champloo", "Cowboy Bebop", "Code Geass", "Neon Genesis Evangelion", "Gurren Lagann", "Kill la Kill", "Akame ga Kill!", "Soul Eater", "Noragami", "Seraph of the End", "The Seven Deadly Sins", "Magi: The Labyrinth of Magic", "Overlord", "That Time I Got Reincarnated as a Slime", "The Rising of the Shield Hero", "Re:ZERO", "Konosuba", "Is It Wrong to Try to Pick Up Girls in a Dungeon?", "Sword Art Online", "Log Horizon", "The Misfit of Demon King Academy", "Jobless Reincarnation", "The Eminence in Shadow", "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat", "Arifureta", "Goblin Slayer", "Made in Abyss", "Vinland Saga", "Berserk", "Claymore", "Dororo", "Hellsing Ultimate", "Fate/Zero", "Fate/stay night: Unlimited Blade Works", "Fate/Apocrypha", "Fate/Grand Order - Absolute Demonic Front", "86 Eighty-Six", "Vivy: Fluorite Eye's Song", "Cyberpunk: Edgerunners", "Lycoris Recoil", "Kaiju No. 8", "Wind Breaker", "Sakamoto Days", "Dandadan", "DAN DA DAN", "Hell's Paradise", "Mashle: Magic and Muscles", "Undead Unluck", "Ragna Crimson", "The God of High School", "Tower of God", "Bungo Stray Dogs", "Durarara!!", "Baccano!", "Great Pretender", "Megalobox", "Hajime no Ippo", "Kengan Ashura", "Baki", "Baki Hanma", "Record of Ragnarok", "Blue Lock", "Haikyuu!!", "Kuroko's Basketball", "Slam Dunk", "Ace of Diamond", "Yuri on Ice", "Free!", "Run with the Wind", "SK8 the Infinity", "Ao Ashi", "Captain Tsubasa", "Initial D", "MF Ghost", "Overtake!", "Ping Pong the Animation", "The Prince of Tennis", "Food Wars!", "Dr. Stone: New World", "Cells at Work!", "Cells at Work! CODE BLACK", "The Apothecary Diaries", "Frieren: Beyond Journey's End", "Delicious in Dungeon", "Ranking of Kings", "The Ancient Magus' Bride", "To Your Eternity", "Mushoku Tensei: Jobless Reincarnation", "Spice and Wolf", "The Faraway Paladin", "Ascendance of a Bookworm", "Somali and the Forest Spirit", "Natsume's Book of Friends", "Violet Evergarden", "A Silent Voice", "Your Lie in April", "Anohana: The Flower We Saw That Day", "Clannad", "Clannad: After Story", "Toradora!", "Kaguya-sama: Love Is War", "Horimiya", "My Dress-Up Darling", "Rascal Does Not Dream of Bunny Girl Senpai", "Oregairu", "Golden Time", "Lovely Complex", "Kimi ni Todoke", "Fruits Basket", "Fruits Basket (2019)", "Maid Sama!", "Ouran High School Host Club", "Wotakoi: Love Is Hard for Otaku", "Monthly Girls' Nozaki-kun", "Tomo-chan Is a Girl!", "Komi Can't Communicate", "The Dangers in My Heart", "Insomniacs After School", "Skip and Loafer", "A Sign of Affection", "My Love Story with Yamada-kun at Lv999", "Blue Spring Ride", "Orange", "Scum's Wish", "Domestic Girlfriend", "Rent-a-Girlfriend", "Nisekoi", "Quintessential Quintuplets", "We Never Learn", "Oshi no Ko", "SPY x FAMILY", "Kakushigoto", "Buddy Daddies", "Barakamon", "Hinamatsuri", "Nichijou", "K-On!", "Lucky Star", "Bocchi the Rock!", "Azumanga Daioh", "Daily Lives of High School Boys", "Grand Blue", "Gintama", "Saiki K.", "The Disastrous Life of Saiki K.", "Nichijou: My Ordinary Life", "Asobi Asobase", "Sleepy Princess in the Demon Castle", "Non Non Biyori", "Yuru Camp", "A Place Further Than the Universe", "Do It Yourself!!", "New Game!", "Gabriel DropOut", "Miss Kobayashi's Dragon Maid", "Laid-Back Camp", "Konohana Kitan", "Flying Witch", "Aria the Animation", "Mushishi", "Girls' Last Tour", "Sound! Euphonium", "March Comes in Like a Lion", "Silver Spoon", "Hyouka", "The Melancholy of Haruhi Suzumiya", "The Pet Girl of Sakurasou", "Tsuki ga Kirei", "Just Because!", "ReLIFE", "Plastic Memories", "Angel Beats!", "Charlotte", "Kokoro Connect", "Ano Natsu de Matteru", "Bloom Into You", "Adachi and Shimamura", "Sakura Trick", "Strawberry Marshmallow", "Pokemon", "Digimon Adventure", "Digimon Tamers", "Beyblade", "Bakugan Battle Brawlers", "Cardcaptor Sakura", "Sailor Moon", "Sailor Moon Crystal", "Pretty Cure", "Inazuma Eleven", "Medabots", "Shaman King", "Shaman King (2021)", "D.Gray-man", "Katekyo Hitman Reborn!", "World Trigger", "Toriko", "Beelzebub", "Assassination Classroom", "Classroom of the Elite", "The Irregular at Magic High School", "Blue Period", "Great Teacher Onizuka", "GTO: Great Teacher Onizuka", "Parasyte: The Maxim", "Ajin", "Erased", "Steins;Gate", "Steins;Gate 0", "Psycho-Pass", "Monster", "Pluto", "Serial Experiments Lain", "Ergo Proxy", "Texhnolyze", "Terror in Resonance", "Odd Taxi", "Sonny Boy", "Heavenly Delusion", "Summer Time Rendering", "Link Click", "Devilman Crybaby", "Dorohedoro", "Golden Kamuy", "Drifters", "Black Lagoon", "Jormungand", "Gangsta.", "91 Days", "Banana Fish", "Moriarty the Patriot", "The Case Study of Vanitas", "Undead Girl Murder Farce", "The Millionaire Detective Balance: UNLIMITED", "ID:INVADED", "Deca-Dence", "Akudama Drive", "Aldnoah.Zero", "Darling in the Franxx", "Promare", "Eighty Six", "Astra Lost in Space", "Space Dandy", "Planetes", "Legend of the Galactic Heroes", "Mobile Suit Gundam", "Mobile Suit Gundam: Iron-Blooded Orphans", "Mobile Suit Gundam: The Witch from Mercury", "Gundam 00", "Gundam SEED", "Macross Frontier", "Eureka Seven", "FLCL", "RahXephon", "Knights of Sidonia", "Kabaneri of the Iron Fortress", "Godzilla Singular Point", "Beastars", "Land of the Lustrous", "Houseki no Kuni", "Aggretsuko", "Carole & Tuesday", "Keep Your Hands Off Eizouken!", "Shirobako", "Bakuman", "Blue Giant", "The Great Passage", "Chihayafuru", "Yowamushi Pedal", "Tsurune", "Stars Align", "Ballroom e Youkoso", "Welcome to the Ballroom", "Baby Steps", "Major", "Major 2nd", "Hikaru no Go", "Initial D First Stage", "Initial D Second Stage", "Initial D Third Stage", "Initial D Fourth Stage", "Initial D Fifth Stage", "Initial D Final Stage", "Solo Leveling Season 2", "Demon Slayer: Entertainment District Arc", "Demon Slayer: Swordsmith Village Arc", "Demon Slayer: Hashira Training Arc", "Jujutsu Kaisen 0", "Jujutsu Kaisen Season 2", "Attack on Titan Final Season", "My Hero Academia: Vigilantes", "My Hero Academia Season 7", "One Punch Man Season 2", "One Punch Man Season 3", "Black Clover: Sword of the Wizard King", "Bleach: The Final Arc", "SPY x FAMILY Season 2", "The Apothecary Diaries Season 2", "Blue Lock Season 2", "Fire Force Season 2", "Dr. Stone: Science Future", "Re:ZERO Season 3", "That Time I Got Reincarnated as a Slime Season 3", "Kaiju No. 8 Season 2", "Wind Breaker Season 2", "Dandadan Season 2", "My Happy Marriage", "The Elusive Samurai", "The Wrong Way to Use Healing Magic", "The Unwanted Undead Adventurer", "The Ossan Newbie Adventurer", "Failure Frame", "The Strongest Magician in the Demon Lord's Army Was a Human", "Wistoria: Wand and Sword", "The Beginning After the End", "The Shiunji Family Children", "The Brilliant Healer's New Life in the Shadows", "Fire Force Season 3", "Zom 100: Bucket List of the Dead", "The Fable", "Metallic Rouge", "Mission: Yozakura Family", "The Duke of Death and His Maid", "Toilet-Bound Hanako-kun", "Toilet-Bound Hanako-kun 2", "The Summer Hikaru Died", "The Fragrant Flower Blooms with Dignity", "Medalist", "Witch Hat Atelier"];
-const PROVIDERS=[["Crunchyroll", "https://www.crunchyroll.com/search?q=", "Official Crunchyroll search"], ["Netflix", "https://www.netflix.com/search?q=", "Official Netflix search"], ["Amazon Prime Video", "https://www.primevideo.com/search/ref=atv_nb_sr?phrase=", "Official Prime Video search"], ["YouTube", "https://www.youtube.com/results?search_query=", "Official YouTube search"], ["Amazon MX Player", "https://www.mxplayer.in/search?query=", "Official MX Player search"], ["Sony LIV", "https://www.sonyliv.com/search?query=", "Official Sony LIV search"], ["JioHotstar", "https://www.hotstar.com/in/search?q=", "Official JioHotstar search"]];
-const icons=["🍥","⚔️","🔥","🌙","✨","🌀","👑","💫","🥷","🌸"];
-const q=document.getElementById("q"),grid=document.getElementById("grid"),empty=document.getElementById("empty"),heading=document.getElementById("heading"),count=document.getElementById("count"),modal=document.getElementById("modal"),modalTitle=document.getElementById("modalTitle"),sources=document.getElementById("sources");
+const exact = {
+"one piece":[
+ ["Crunchyroll","https://www.crunchyroll.com/series/GRMG8ZQZR/one-piece",true],
+ ["Netflix","https://www.netflix.com/in/title/80107103",true]
+],
+"demon slayer":[["Crunchyroll","https://www.crunchyroll.com/series/GY5P48XEY/demon-slayer-kimetsu-no-yaiba",true]],
+"jujutsu kaisen":[["Crunchyroll","https://www.crunchyroll.com/series/GRDV0019R/jujutsu-kaisen",true]],
+"solo leveling":[["Crunchyroll","https://www.crunchyroll.com/series/GDKHZEJ0H/solo-leveling",true]],
+"frieren":[["Crunchyroll","https://www.crunchyroll.com/series/GG5H5XQ1D/frieren-beyond-journeys-end",true]],
+"spy x family":[["Crunchyroll","https://www.crunchyroll.com/series/G4PH0WXVJ/spy-x-family",true]],
+"my hero academia":[["Crunchyroll","https://www.crunchyroll.com/series/G6NQVM3VR/my-hero-academia",true]],
+"attack on titan":[["Crunchyroll","https://www.crunchyroll.com/series/GR751KNZY/attack-on-titan",true]],
+"naruto":[["Crunchyroll","https://www.crunchyroll.com/series/GY9PJ5JWR/naruto",true]],
+"death note":[["Netflix","https://www.netflix.com/in/title/70204970",true]],
+"your lie in april":[["Netflix","https://www.netflix.com/in/title/80041032",true]],
+"dan da dan":[["Crunchyroll","https://www.crunchyroll.com/series/GG5H5XQ77/dandadan",true]]
+};
+
+const catalog = [
+"One Piece","Demon Slayer","Jujutsu Kaisen","Solo Leveling","Frieren: Beyond Journey's End",
+"SPY x FAMILY","My Hero Academia","Attack on Titan","Naruto","Death Note","Your Lie in April","DAN DA DAN",
+"Dragon Ball","Dragon Ball Z","Dragon Ball Super","Bleach","Bleach: Thousand-Year Blood War","Hunter x Hunter",
+"Black Clover","One Punch Man","Mob Psycho 100","Chainsaw Man","Blue Lock","Haikyuu!!","My Dress-Up Darling",
+"Tokyo Revengers","Tokyo Ghoul","Vinland Saga","Fire Force","Dr. Stone","The Rising of the Shield Hero",
+"That Time I Got Reincarnated as a Slime","Overlord","Re:ZERO -Starting Life in Another World-","Sword Art Online",
+"Fairy Tail","JoJo's Bizarre Adventure","Bungo Stray Dogs","Code Geass","Fullmetal Alchemist: Brotherhood",
+"Steins;Gate","Kaguya-sama: Love Is War","Horimiya","Toradora!","A Silent Voice","Your Name","Weathering With You",
+"Haikyu!!","Kuroko's Basketball","Slam Dunk","Hajime no Ippo","MASHLE: Magic and Muscles","Kaiju No. 8",
+"Wind Breaker","The Apothecary Diaries","Delicious in Dungeon","Oshi no Ko","Zom 100: Bucket List of the Dead",
+"Undead Unluck","Hell's Paradise","Mashle","Fire Force","Blue Exorcist","Soul Eater","Noragami","Akame ga Kill!",
+"Assassination Classroom","Classroom of the Elite","The Seven Deadly Sins","Magi","Magi: Adventure of Sinbad",
+"Samurai Champloo","Cowboy Bebop","Trigun Stampede","Pluto","Monster","Erased","Parasyte: The Maxim",
+"Made in Abyss","The Promised Neverland","86 Eighty-Six","Lycoris Recoil","Violet Evergarden","Bocchi the Rock!",
+"Love, Chunibyo & Other Delusions!","Rascal Does Not Dream of Bunny Girl Senpai","Komi Can't Communicate",
+"Shangri-La Frontier","The Eminence in Shadow","Tsukimichi: Moonlit Fantasy","Mushoku Tensei: Jobless Reincarnation",
+"That Time I Got Reincarnated as a Slime the Movie","Black Butler","Katekyo Hitman Reborn!","Inuyasha","Yu Yu Hakusho",
+"Yu-Gi-Oh!","Pokémon","Digimon Adventure","Sailor Moon","Cardcaptor Sakura","Detective Conan","Case Closed",
+"Initial D","Gintama","Durarara!!","Kekkai Sensen","D.Gray-man","Rurouni Kenshin","Hellsing","Hellsing Ultimate"
+];
+
+function key(s){return s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9]+/g," ").trim();}
 function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
-function render(items){grid.innerHTML="";count.textContent=items.length+" result"+(items.length===1?"":"s");empty.style.display=items.length?"none":"block";items.slice(0,100).forEach((title,i)=>{const c=document.createElement("article");c.className="card";c.innerHTML=`<div class="poster">${icons[i%icons.length]}</div><div class="title">${esc(title)}</div><div class="meta">Direct official-provider links</div><div class="actions"><button class="watch" data-title="${esc(title)}">▶ Where to watch</button></div>`;grid.appendChild(c);});}
-function search(){const t=q.value.trim().toLowerCase();const r=t?TITLES.filter(x=>x.toLowerCase().includes(t)):TITLES;heading.textContent=t?`Results for “${q.value.trim()}”`:"Popular anime";render(r);}
-document.getElementById("searchBtn").onclick=search;q.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();search()}};
-function sfx(){try{const a=new Audio("redirect.wav");a.volume=.55;a.play().catch(()=>{})}catch(e){}}
-function show(title){modalTitle.textContent=title;sources.innerHTML="";PROVIDERS.forEach(p=>{const url=p[1]+encodeURIComponent(title),el=document.createElement("div");el.className="source";el.innerHTML=`<div><b>${esc(p[0])}</b><small>${esc(p[2])}</small></div><a href="${url}" target="_blank" rel="noopener noreferrer">Open</a>`;sources.appendChild(el)});modal.classList.add("show")}
-grid.onclick=e=>{const b=e.target.closest("[data-title]");if(b)show(b.dataset.title)};sources.onclick=e=>{if(e.target.closest("a"))sfx()};document.getElementById("close").onclick=()=>modal.classList.remove("show");modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};render(TITLES);
+function providerSearch(provider,title){
+ const q=encodeURIComponent(title);
+ const urls={
+  "Crunchyroll":"https://www.crunchyroll.com/search?q="+q,
+  "Netflix":"https://www.netflix.com/search?q="+q,
+  "Amazon Prime Video":"https://www.primevideo.com/search/ref=atv_nb_sr?phrase="+q,
+  "YouTube":"https://www.youtube.com/results?search_query="+encodeURIComponent(title+" official anime"),
+  "Sony LIV":"https://www.sonyliv.com/search?q="+q
+ };
+ return urls[provider]||("https://www.google.com/search?q="+encodeURIComponent(provider+" "+title+" official"));
+}
+function sound(){const a=document.getElementById("sfx"); if(a){a.currentTime=0;a.play().catch(()=>{});}}
+function card(title){
+ const ex=exact[key(title)]||[];
+ const providers=[["Crunchyroll",!!ex.find(x=>x[0]=="Crunchyroll")],["Netflix",!!ex.find(x=>x[0]=="Netflix")],["Amazon Prime Video",false],["YouTube",false]];
+ let src=ex.map(x=>`<span class="source verified">✓ ${esc(x[0])} direct</span>`).join("");
+ let actions="";
+ if(ex.length){
+   const x=ex[0];
+   actions=`<a class="watch" href="${x[1]}" target="_blank" rel="noopener" data-sound>Watch on ${esc(x[0])}</a>`;
+ } else {
+   actions=`<a class="searchprov" href="${providerSearch("Crunchyroll",title)}" target="_blank" rel="noopener" data-sound>Search provider</a>`;
+ }
+ return `<article class="card"><h3>${esc(title)}</h3><div class="meta">${ex.length?"Direct title page verified for this build.":"No exact provider title page is hard-coded for this title, so AnimeCross will not pretend a homepage is the anime page."}</div><div class="sources">${src||'<span class="source">No verified direct page yet</span>'}</div><div class="actions">${actions}</div></article>`;
+}
+function render(list,heading){
+ document.getElementById("title").textContent=heading;
+ document.getElementById("grid").innerHTML=list.length?list.map(card).join(""):`<div class="empty">No anime found.<div class="small">Try another title.</div></div>`;
+ document.querySelectorAll("[data-sound]").forEach(a=>a.addEventListener("click",sound));
+}
+function search(){
+ const q=document.getElementById("q").value.trim();
+ if(!q){render(catalog.slice(0,24),"Popular anime");return;}
+ const k=key(q), exactMatch=Object.keys(exact).find(x=>x===k);
+ const list=catalog.filter(x=>key(x).includes(k));
+ if(exactMatch && !list.some(x=>key(x)===k)) list.unshift(q);
+ render(list.slice(0,50),"Search results");
+}
+document.getElementById("go").addEventListener("click",search);
+document.getElementById("q").addEventListener("keydown",e=>{if(e.key==="Enter")search();});
+render(catalog.slice(0,24),"Popular anime");
 </script>
+<audio id="sfx" preload="auto" src="redirect.wav"></audio>
 </body></html>
