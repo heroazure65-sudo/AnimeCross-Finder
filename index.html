@@ -21,7 +21,7 @@ footer{padding:42px 0 20px;text-align:center;color:#626a83;font-size:11px}
 </head>
 <body>
 <div class="wrap">
-<header><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">Direct provider finder</div></header>
+<header><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">Direct provider finder • Fixed</div></header>
 <section class="hero">
 <h1>Find anime.<br><i>Watch it.</i></h1>
 <p>Search AnimeCross first. Choose a provider directly from AnimeCross — no Google results and no JustWatch detour.</p>
@@ -37,7 +37,7 @@ const TITLES=["One Piece", "Naruto", "Naruto Shippuden", "Boruto: Naruto Next Ge
 const PROVIDERS=[["Crunchyroll", "https://www.crunchyroll.com/search?q=", "Official Crunchyroll search"], ["Netflix", "https://www.netflix.com/search?q=", "Official Netflix search"], ["Amazon Prime Video", "https://www.primevideo.com/search/ref=atv_nb_sr?phrase=", "Official Prime Video search"], ["YouTube", "https://www.youtube.com/results?search_query=", "Official YouTube search"], ["Amazon MX Player", "https://www.mxplayer.in/search?query=", "Official MX Player search"], ["Sony LIV", "https://www.sonyliv.com/search?query=", "Official Sony LIV search"], ["JioHotstar", "https://www.hotstar.com/in/search?q=", "Official JioHotstar search"]];
 const icons=["🍥","⚔️","🔥","🌙","✨","🌀","👑","💫","🥷","🌸"];
 const q=document.getElementById("q"),grid=document.getElementById("grid"),empty=document.getElementById("empty"),heading=document.getElementById("heading"),count=document.getElementById("count"),modal=document.getElementById("modal"),modalTitle=document.getElementById("modalTitle"),sources=document.getElementById("sources");
-function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]);}
+function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
 function render(items){grid.innerHTML="";count.textContent=items.length+" result"+(items.length===1?"":"s");empty.style.display=items.length?"none":"block";items.slice(0,100).forEach((title,i)=>{const c=document.createElement("article");c.className="card";c.innerHTML=`<div class="poster">${icons[i%icons.length]}</div><div class="title">${esc(title)}</div><div class="meta">Direct official-provider links</div><div class="actions"><button class="watch" data-title="${esc(title)}">▶ Where to watch</button></div>`;grid.appendChild(c);});}
 function search(){const t=q.value.trim().toLowerCase();const r=t?TITLES.filter(x=>x.toLowerCase().includes(t)):TITLES;heading.textContent=t?`Results for “${q.value.trim()}”`:"Popular anime";render(r);}
 document.getElementById("searchBtn").onclick=search;q.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();search()}};
