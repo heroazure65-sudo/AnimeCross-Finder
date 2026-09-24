@@ -1,21 +1,15 @@
-AnimeCross Finder v6
+AnimeCross Finder v7
 =====================
 
-NEW
-- Automatic anime banner artwork from AniList.
-- Cover-art fallback when a banner is unavailable.
-- Mobile-friendly cards and search.
-- Search box keeps focus while typing.
-- Redirect sound on provider links.
-- No JustWatch or Google detour.
-- Exact title links are marked DIRECT.
-- Other provider buttons are marked SEARCH and do not claim availability.
-- Static GitHub Pages compatible: no server, npm, or API key.
+V7 ARTWORK UPDATE
+- Anime cards now prefer AniList cover/key art instead of AniList bannerImage.
+- The cover is shown as a clean poster with a soft blurred background.
+- This prevents random scene/cartoon-style banner images from becoming the main artwork.
+- If cover art is unavailable, the AniList banner is used as a fallback.
+- Search, provider buttons, direct/search labels, and redirect sound remain.
 
-DEPLOY
-Replace your existing index.html and redirect.wav in the GitHub repository, then commit.
-GitHub Pages should redeploy automatically.
+GITHUB PAGES
+Replace index.html and redirect.wav in the existing repository and commit the changes.
 
-LIMITATION
-A static site cannot securely verify live country-specific streaming rights across every provider.
-This version therefore avoids pretending that a generic provider search is confirmed availability.
+NOTE
+Artwork is loaded from AniList at runtime. Streaming availability is not claimed unless an exact provider URL is in the site's verified map.

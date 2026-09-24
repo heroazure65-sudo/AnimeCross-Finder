@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AnimeCross Finder v6</title>
+<title>AnimeCross Finder v7</title>
 <style>
 :root{--bg:#070812;--panel:#101222;--panel2:#0c0e1a;--line:#292c48;--text:#f7f5ff;--muted:#9b9db8;--a:#9b5cff;--b:#ff4fc3;--ok:#55e6a5}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -5%,#251345 0,#070812 42%);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}.wrap{max-width:1100px;margin:auto;padding:24px 16px 60px}
@@ -12,30 +12,31 @@
 .search{max-width:760px;margin:auto;display:flex;gap:8px;padding:8px;background:#0d0f1d;border:1px solid #363951;border-radius:23px}.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:#fff;font-size:17px;padding:15px}.search button{border:0;border-radius:16px;padding:14px 24px;color:white;font-weight:900;background:linear-gradient(100deg,#9b56ff,#ee50ba);cursor:pointer}
 .status{text-align:center;color:#8589a6;font-size:13px;margin:13px}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:42px 0 15px}.sectionhead h2{margin:0;font-size:28px}.sectionhead small{color:#777b98}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
 .card{background:linear-gradient(180deg,#111326,#0b0d18);border:1px solid var(--line);border-radius:20px;padding:0;overflow:hidden}
-.banner{height:150px;background:linear-gradient(135deg,#181b31,#0b0d18);position:relative;overflow:hidden}
-.banner img{width:100%;height:100%;display:block;object-fit:cover;opacity:.88;transition:transform .35s ease}
-.card:hover .banner img{transform:scale(1.035)}
-.banner:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,18,.05),rgba(7,8,18,.9))}
+.art{height:176px;position:relative;overflow:hidden;background:#0b0d18}
+.art .back{position:absolute;inset:-18px;background-position:center;background-size:cover;filter:blur(18px);transform:scale(1.12);opacity:.42}
+.art .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,6,15,.05),rgba(5,6,15,.92))}
+.art .poster{position:absolute;left:15px;bottom:14px;width:82px;height:116px;border-radius:11px;object-fit:cover;object-position:center;border:1px solid rgba(255,255,255,.16);box-shadow:0 10px 28px rgba(0,0,0,.45)}
+.art .artlabel{position:absolute;left:112px;right:14px;bottom:17px;color:#fff;font-size:12px;font-weight:800;opacity:.82}
 .cardbody{padding:16px 17px 17px}
 .card h3{margin:0 0 7px;font-size:20px}.desc{color:#8f92ac;font-size:13px;line-height:1.45;margin-bottom:13px}
 .providers{display:flex;flex-wrap:wrap;gap:8px}.prov{display:flex;align-items:center;gap:7px;border:1px solid #30334d;background:#151827;border-radius:13px;padding:8px 9px;text-decoration:none;color:#ddd;font-size:12px;font-weight:800}.prov.direct{border-color:#6840a0}.dot{width:7px;height:7px;border-radius:50%;background:#7d819d}.direct .dot{background:var(--ok)}
 .directnote{color:#7f83a0;font-size:11px;margin-top:12px}.empty{padding:30px;text-align:center;border:1px dashed #363951;border-radius:20px;color:#999cb5}
 footer{text-align:center;color:#626681;margin-top:45px;font-size:13px}
-@media(max-width:600px){.top{align-items:flex-start}.logo{font-size:23px}.pill{font-size:11px}.hero{padding-top:48px}.search{border-radius:19px}.search input{font-size:15px}.search button{padding:12px 16px}.grid{grid-template-columns:1fr}}
+@media(max-width:600px){.art{height:165px}.art .poster{width:72px;height:102px;left:12px}.art .artlabel{left:98px}.top{align-items:flex-start}.logo{font-size:23px}.pill{font-size:11px}.hero{padding-top:48px}.search{border-radius:19px}.search input{font-size:15px}.search button{padding:12px 16px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<header class="top"><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">v6 • Banner + Multi-provider</div></header>
+<header class="top"><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">v7 • Key Art</div></header>
 <section class="hero">
 <h1>Find anime.<br><span>Find where.</span></h1>
-<p>Search anime with real artwork banners, then open official provider destinations. Direct links are only marked when AnimeCross has an exact title page; everything else is clearly marked as a provider search.</p>
+<p>Find anime with clean promotional artwork and official provider destinations. Direct links are only marked when AnimeCross has an exact title URL.</p>
 <div class="search"><input id="q" placeholder="Search any anime..." autocomplete="off"><button id="go">Search</button></div>
 <div class="status" id="status">Choose an anime below or search for one.</div>
 </section>
 <div class="sectionhead"><h2 id="heading">Popular anime</h2><small>India-oriented provider destinations</small></div>
 <div id="grid" class="grid"></div>
-<footer>AnimeCross Finder v6 • GitHub Pages • automatic AniList artwork • no JustWatch detour</footer>
+<footer>AnimeCross Finder v7 • GitHub Pages • promotional anime artwork • no JustWatch detour</footer>
 </div>
 <audio id="sfx" preload="auto" src="redirect.wav"></audio>
 <script>
@@ -80,29 +81,36 @@ const providerNames=Object.keys(providers);
 function norm(s){return s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9]+/g," ").trim();}
 function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
 function play(){let a=document.getElementById("sfx");a.currentTime=0;a.play().catch(()=>{});}
-const imageCache = new Map();
+const artCache = new Map();
 
-async function getAniListArtwork(title){
+async function getAniListKeyArt(title){
   const key = norm(title);
-  if(imageCache.has(key)) return imageCache.get(key);
+  if(artCache.has(key)) return artCache.get(key);
+
   try{
-    const r = await fetch("https://graphql.anilist.co", {
+    const r = await fetch("https://graphql.anilist.co",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
       body:JSON.stringify({
-        query:`query($search:String){Media(search:$search,type:ANIME){bannerImage coverImage{extraLarge large}}}`,
+        query:`query($search:String){Media(search:$search,type:ANIME){title{romaji english} coverImage{extraLarge large} bannerImage}}`,
         variables:{search:title}
       })
     });
-    if(!r.ok) throw new Error("AniList request failed");
+    if(!r.ok) throw new Error("AniList unavailable");
     const j = await r.json();
     const m = j?.data?.Media;
-    const art = m?.bannerImage || m?.coverImage?.extraLarge || m?.coverImage?.large || "";
-    imageCache.set(key, art);
+
+    // V7 intentionally prefers the cover/key art over bannerImage.
+    // This avoids random scene screenshots being used as the main banner.
+    const cover = m?.coverImage?.extraLarge || m?.coverImage?.large || "";
+    const banner = m?.bannerImage || "";
+    const art = {cover, banner};
+    artCache.set(key, art);
     return art;
   }catch(e){
-    imageCache.set(key, "");
-    return "";
+    const empty={cover:"",banner:""};
+    artCache.set(key,empty);
+    return empty;
   }
 }
 
@@ -115,8 +123,8 @@ function render(title){
  });
  const safe=esc(title);
  return `<article class="card">
-   <div class="banner" data-banner="${safe}">
-     <div style="position:absolute;inset:0;display:grid;place-items:center;color:#666b87;font-size:12px;z-index:1">Loading artwork…</div>
+   <div class="art" data-art="${safe}">
+     <div class="artlabel">${safe}</div>
    </div>
    <div class="cardbody">
     <h3>${safe}</h3>
@@ -128,14 +136,26 @@ function render(title){
 }
 
 async function hydrateArtwork(){
-  const nodes=[...document.querySelectorAll("[data-banner]")];
+  const nodes=[...document.querySelectorAll("[data-art]")];
   await Promise.all(nodes.map(async node=>{
-    const title=node.getAttribute("data-banner");
-    const url=await getAniListArtwork(title);
-    if(url){
-      node.innerHTML=`<img src="${url}" alt="${esc(title)} banner" loading="lazy" referrerpolicy="no-referrer">`;
+    const title=node.getAttribute("data-art");
+    const art=await getAniListKeyArt(title);
+
+    if(art.cover){
+      const safeUrl=art.cover.replace(/"/g,"%22");
+      node.innerHTML=
+        `<div class="back" style="background-image:url("${safeUrl}")"></div>`+
+        `<div class="shade"></div>`+
+        `<img class="poster" src="${safeUrl}" alt="${esc(title)} cover" loading="lazy" referrerpolicy="no-referrer">`+
+        `<div class="artlabel">${esc(title)}</div>`;
+    }else if(art.banner){
+      const safeUrl=art.banner.replace(/"/g,"%22");
+      node.innerHTML=
+        `<div class="back" style="background-image:url("${safeUrl}")"></div>`+
+        `<div class="shade"></div>`+
+        `<div class="artlabel">${esc(title)}</div>`;
     }else{
-      node.innerHTML=`<div style="position:absolute;inset:0;display:grid;place-items:center;color:#7f83a0;font-size:12px">Artwork unavailable</div>`;
+      node.innerHTML=`<div class="artlabel">${esc(title)}</div>`;
     }
   }));
 }
