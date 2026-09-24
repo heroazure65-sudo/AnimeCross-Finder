@@ -1,23 +1,21 @@
-AnimeCross Finder v5 — Multi-provider
+AnimeCross Finder v6
+=====================
 
-Upload index.html and redirect.wav to the ROOT of the GitHub Pages repo.
+NEW
+- Automatic anime banner artwork from AniList.
+- Cover-art fallback when a banner is unavailable.
+- Mobile-friendly cards and search.
+- Search box keeps focus while typing.
+- Redirect sound on provider links.
+- No JustWatch or Google detour.
+- Exact title links are marked DIRECT.
+- Other provider buttons are marked SEARCH and do not claim availability.
+- Static GitHub Pages compatible: no server, npm, or API key.
 
-What's new:
-- JioHotstar
-- Crunchyroll
-- Netflix
-- Prime Video / Amazon
-- YouTube
-- Sony LIV
-- Bilibili
-- iQIYI
-- Muse India
-- Ani-One
-- 90+ anime built in
-- Exact direct links are marked "direct"
-- Other providers are marked "search" so AnimeCross never falsely claims availability
-- No JustWatch redirect
-- Redirect sound included
+DEPLOY
+Replace your existing index.html and redirect.wav in the GitHub repository, then commit.
+GitHub Pages should redeploy automatically.
 
-Important:
-A static GitHub Pages site cannot securely verify live country-specific streaming availability across many providers. v5 therefore labels exact links vs provider searches honestly. A future server-backed version can use a streaming-availability API to populate only currently verified providers and exact title/episode pages.
+LIMITATION
+A static site cannot securely verify live country-specific streaming rights across every provider.
+This version therefore avoids pretending that a generic provider search is confirmed availability.

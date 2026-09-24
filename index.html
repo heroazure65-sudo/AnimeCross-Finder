@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AnimeCross Finder v5</title>
+<title>AnimeCross Finder v6</title>
 <style>
 :root{--bg:#070812;--panel:#101222;--panel2:#0c0e1a;--line:#292c48;--text:#f7f5ff;--muted:#9b9db8;--a:#9b5cff;--b:#ff4fc3;--ok:#55e6a5}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -5%,#251345 0,#070812 42%);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}.wrap{max-width:1100px;margin:auto;padding:24px 16px 60px}
@@ -11,7 +11,13 @@
 .hero{text-align:center;padding:64px 0 34px}.hero h1{font-size:clamp(43px,9vw,78px);line-height:.96;letter-spacing:-4px;margin:0}.hero h1 span{background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;color:transparent}.hero p{max-width:720px;margin:25px auto;color:var(--muted);font-size:17px;line-height:1.55}
 .search{max-width:760px;margin:auto;display:flex;gap:8px;padding:8px;background:#0d0f1d;border:1px solid #363951;border-radius:23px}.search input{flex:1;min-width:0;background:none;border:0;outline:0;color:#fff;font-size:17px;padding:15px}.search button{border:0;border-radius:16px;padding:14px 24px;color:white;font-weight:900;background:linear-gradient(100deg,#9b56ff,#ee50ba);cursor:pointer}
 .status{text-align:center;color:#8589a6;font-size:13px;margin:13px}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:10px;margin:42px 0 15px}.sectionhead h2{margin:0;font-size:28px}.sectionhead small{color:#777b98}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
-.card{background:linear-gradient(180deg,#111326,#0b0d18);border:1px solid var(--line);border-radius:20px;padding:17px}.card h3{margin:0 0 7px;font-size:20px}.desc{color:#8f92ac;font-size:13px;line-height:1.45;margin-bottom:13px}
+.card{background:linear-gradient(180deg,#111326,#0b0d18);border:1px solid var(--line);border-radius:20px;padding:0;overflow:hidden}
+.banner{height:150px;background:linear-gradient(135deg,#181b31,#0b0d18);position:relative;overflow:hidden}
+.banner img{width:100%;height:100%;display:block;object-fit:cover;opacity:.88;transition:transform .35s ease}
+.card:hover .banner img{transform:scale(1.035)}
+.banner:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,8,18,.05),rgba(7,8,18,.9))}
+.cardbody{padding:16px 17px 17px}
+.card h3{margin:0 0 7px;font-size:20px}.desc{color:#8f92ac;font-size:13px;line-height:1.45;margin-bottom:13px}
 .providers{display:flex;flex-wrap:wrap;gap:8px}.prov{display:flex;align-items:center;gap:7px;border:1px solid #30334d;background:#151827;border-radius:13px;padding:8px 9px;text-decoration:none;color:#ddd;font-size:12px;font-weight:800}.prov.direct{border-color:#6840a0}.dot{width:7px;height:7px;border-radius:50%;background:#7d819d}.direct .dot{background:var(--ok)}
 .directnote{color:#7f83a0;font-size:11px;margin-top:12px}.empty{padding:30px;text-align:center;border:1px dashed #363951;border-radius:20px;color:#999cb5}
 footer{text-align:center;color:#626681;margin-top:45px;font-size:13px}
@@ -20,16 +26,16 @@ footer{text-align:center;color:#626681;margin-top:45px;font-size:13px}
 </head>
 <body>
 <div class="wrap">
-<header class="top"><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">v5 • Multi-provider</div></header>
+<header class="top"><div class="logo">Anime<span>Cross</span> Finder</div><div class="pill">v6 • Banner + Multi-provider</div></header>
 <section class="hero">
 <h1>Find anime.<br><span>Find where.</span></h1>
-<p>More than Crunchyroll and Netflix. AnimeCross now checks a wider set of official provider destinations and never calls a provider homepage an exact anime page.</p>
+<p>Search anime with real artwork banners, then open official provider destinations. Direct links are only marked when AnimeCross has an exact title page; everything else is clearly marked as a provider search.</p>
 <div class="search"><input id="q" placeholder="Search any anime..." autocomplete="off"><button id="go">Search</button></div>
 <div class="status" id="status">Choose an anime below or search for one.</div>
 </section>
 <div class="sectionhead"><h2 id="heading">Popular anime</h2><small>India-oriented provider destinations</small></div>
 <div id="grid" class="grid"></div>
-<footer>AnimeCross Finder • GitHub Pages • official provider destinations • no JustWatch detour</footer>
+<footer>AnimeCross Finder v6 • GitHub Pages • automatic AniList artwork • no JustWatch detour</footer>
 </div>
 <audio id="sfx" preload="auto" src="redirect.wav"></audio>
 <script>
@@ -74,6 +80,32 @@ const providerNames=Object.keys(providers);
 function norm(s){return s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9]+/g," ").trim();}
 function esc(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
 function play(){let a=document.getElementById("sfx");a.currentTime=0;a.play().catch(()=>{});}
+const imageCache = new Map();
+
+async function getAniListArtwork(title){
+  const key = norm(title);
+  if(imageCache.has(key)) return imageCache.get(key);
+  try{
+    const r = await fetch("https://graphql.anilist.co", {
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        query:`query($search:String){Media(search:$search,type:ANIME){bannerImage coverImage{extraLarge large}}}`,
+        variables:{search:title}
+      })
+    });
+    if(!r.ok) throw new Error("AniList request failed");
+    const j = await r.json();
+    const m = j?.data?.Media;
+    const art = m?.bannerImage || m?.coverImage?.extraLarge || m?.coverImage?.large || "";
+    imageCache.set(key, art);
+    return art;
+  }catch(e){
+    imageCache.set(key, "");
+    return "";
+  }
+}
+
 function render(title){
  const d=direct[norm(title)]||[];
  const directMap=new Map(d.map(x=>[x[0],x[1]]));
@@ -81,13 +113,39 @@ function render(title){
    const url=directMap.get(name)||providers[name](title);
    return {name,url,direct:directMap.has(name)};
  });
- return `<article class="card"><h3>${esc(title)}</h3><div class="desc">${d.length?"Exact provider page(s) are available in this build. Other providers open their official search destination.":"No exact provider page is hard-coded for this title yet, so provider links are clearly labeled as searches rather than availability claims."}</div><div class="providers">${all.map(p=>`<a class="prov ${p.direct?"direct":""}" href="${p.url}" target="_blank" rel="noopener" data-sfx><i class="dot"></i>${esc(p.name)}${p.direct?" • direct":" • search"}</a>`).join("")}</div>${d.length?'<div class="directnote">✓ “direct” means AnimeCross has an exact title URL. “search” means the official provider search page and does not claim the anime is available there.</div>':'<div class="directnote">Provider catalogues can change by country and over time.</div>'}</article>`;
+ const safe=esc(title);
+ return `<article class="card">
+   <div class="banner" data-banner="${safe}">
+     <div style="position:absolute;inset:0;display:grid;place-items:center;color:#666b87;font-size:12px;z-index:1">Loading artwork…</div>
+   </div>
+   <div class="cardbody">
+    <h3>${safe}</h3>
+    <div class="desc">${d.length?"Exact provider page(s) are available in this build. Other providers open their official search destination.":"No exact provider page is hard-coded for this title yet, so provider links are clearly labeled as searches rather than availability claims."}</div>
+    <div class="providers">${all.map(p=>`<a class="prov ${p.direct?"direct":""}" href="${p.url}" target="_blank" rel="noopener" data-sfx><i class="dot"></i>${esc(p.name)}${p.direct?" • direct":" • search"}</a>`).join("")}</div>
+    ${d.length?'<div class="directnote">✓ “direct” means AnimeCross has an exact title URL. “search” means the official provider search page and does not claim the anime is available there.</div>':'<div class="directnote">Provider catalogues can change by country and over time.</div>'}
+   </div>
+ </article>`;
 }
+
+async function hydrateArtwork(){
+  const nodes=[...document.querySelectorAll("[data-banner]")];
+  await Promise.all(nodes.map(async node=>{
+    const title=node.getAttribute("data-banner");
+    const url=await getAniListArtwork(title);
+    if(url){
+      node.innerHTML=`<img src="${url}" alt="${esc(title)} banner" loading="lazy" referrerpolicy="no-referrer">`;
+    }else{
+      node.innerHTML=`<div style="position:absolute;inset:0;display:grid;place-items:center;color:#7f83a0;font-size:12px">Artwork unavailable</div>`;
+    }
+  }));
+}
+
 function show(list,label){
  document.getElementById("heading").textContent=label;
  document.getElementById("grid").innerHTML=list.length?list.map(render).join(""):`<div class="empty">No anime found. Try another title.</div>`;
  document.getElementById("status").textContent=list.length+" anime result"+(list.length===1?"":"s");
  document.querySelectorAll("[data-sfx]").forEach(x=>x.addEventListener("click",play));
+ hydrateArtwork();
 }
 function search(){
  const q=document.getElementById("q").value.trim();
