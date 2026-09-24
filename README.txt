@@ -1,15 +1,26 @@
-AnimeCross Finder v7
-=====================
+ANIMECROSS V8 AI WORKER
 
-V7 ARTWORK UPDATE
-- Anime cards now prefer AniList cover/key art instead of AniList bannerImage.
-- The cover is shown as a clean poster with a soft blurred background.
-- This prevents random scene/cartoon-style banner images from becoming the main artwork.
-- If cover art is unavailable, the AniList banner is used as a fallback.
-- Search, provider buttons, direct/search labels, and redirect sound remain.
+Upload these files to a GitHub repository:
+- worker.js
+- wrangler.jsonc
 
-GITHUB PAGES
-Replace index.html and redirect.wav in the existing repository and commit the changes.
+Then connect that repository to the existing animecross-ai
+Cloudflare Worker using Workers Builds.
 
-NOTE
-Artwork is loaded from AniList at runtime. Streaming availability is not claimed unless an exact provider URL is in the site's verified map.
+IMPORTANT:
+Keep GEMINI_API_KEY as a Cloudflare Secret.
+Do NOT put the key in GitHub.
+
+Health test:
+https://YOUR-WORKER-DOMAIN.workers.dev/health
+
+Expected response:
+{"ok":true,"service":"AnimeCross V8 AI"}
+
+API:
+POST /api/search
+JSON body:
+{"anime":"One Piece","country":"India"}
+
+The Worker uses Gemini with Google Search grounding to find
+current legal official streaming pages.
