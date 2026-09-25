@@ -1,11 +1,25 @@
-ANIMECROSS FINDER AI — CONNECTED WEBSITE
+AnimeCross Finder AI — New Diagnostic Build
 
-Replace your existing GitHub Pages index.html with this index.html.
+Files:
+- index.html
+- cosmic-background.png
 
-It connects to the deployed Cloudflare Worker:
+This build uses the new high-resolution, watermark-free cosmic background.
+
+It connects to the existing Cloudflare Worker:
 https://animecross-aimoke-4e76.scripttopinrock.workers.dev
 
-The Gemini API key stays safely inside Cloudflare as GEMINI_API_KEY.
-Do not put the key in index.html.
+IMPORTANT:
+This is a temporary diagnostic build. If Gemini rejects the request,
+the page displays the detailed safe diagnostic JSON instead of hiding it
+behind "Gemini API error".
 
-After committing index.html, GitHub Pages should redeploy automatically.
+GitHub:
+1. Replace your current repository index.html with this index.html.
+2. Upload cosmic-background.png to the SAME repository folder.
+3. Commit both files.
+4. Wait for GitHub Pages to redeploy.
+5. Search "One Piece".
+6. If an error appears, send the exact diagnostic message.
+
+Do not put GEMINI_API_KEY in this GitHub repository.
