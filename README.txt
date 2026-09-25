@@ -1,26 +1,11 @@
-ANIMECROSS V8 AI WORKER
+ANIMECROSS FINDER AI — CONNECTED WEBSITE
 
-Upload these files to a GitHub repository:
-- worker.js
-- wrangler.jsonc
+Replace your existing GitHub Pages index.html with this index.html.
 
-Then connect that repository to the existing animecross-ai
-Cloudflare Worker using Workers Builds.
+It connects to the deployed Cloudflare Worker:
+https://animecross-aimoke-4e76.scripttopinrock.workers.dev
 
-IMPORTANT:
-Keep GEMINI_API_KEY as a Cloudflare Secret.
-Do NOT put the key in GitHub.
+The Gemini API key stays safely inside Cloudflare as GEMINI_API_KEY.
+Do not put the key in index.html.
 
-Health test:
-https://YOUR-WORKER-DOMAIN.workers.dev/health
-
-Expected response:
-{"ok":true,"service":"AnimeCross V8 AI"}
-
-API:
-POST /api/search
-JSON body:
-{"anime":"One Piece","country":"India"}
-
-The Worker uses Gemini with Google Search grounding to find
-current legal official streaming pages.
+After committing index.html, GitHub Pages should redeploy automatically.
