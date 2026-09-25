@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AnimeCross Finder AI</title>
+<style>
+:root{--bg:#050509;--card:rgba(10,10,18,.78);--line:rgba(185,140,255,.28);--text:#f7f4ff;--muted:#aaa6ba;--accent:#c45cff}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+body{background-image:linear-gradient(180deg,rgba(3,3,7,.42),rgba(3,3,7,.9)),url("cosmic-background.png");background-size:cover;background-position:center top;background-attachment:fixed}
+.wrap{width:min(980px,100%);margin:auto;padding:28px 18px 70px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{font-size:clamp(25px,7vw,42px);font-weight:800;letter-spacing:-1.5px}
+.badge{border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:#d9c8ff;white-space:nowrap;background:rgba(20,12,34,.55)}
+.hero{text-align:center;padding:85px 0 32px}
+.hero h1{font-size:clamp(43px,10vw,82px);line-height:.98;letter-spacing:-4px;margin:0 auto 22px;max-width:850px}
+.grad{background:linear-gradient(90deg,#fff,#d8bfff,#c34dff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);font-size:clamp(16px,4vw,21px);max-width:700px;margin:0 auto;line-height:1.5}
+.searchbox{margin:32px auto 0;max-width:780px;padding:8px;border:1px solid var(--line);border-radius:22px;background:rgba(8,7,16,.72);backdrop-filter:blur(14px);display:flex;gap:8px}
+input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:white;padding:15px 16px;font-size:17px}
+button{border:0;border-radius:16px;padding:0 24px;background:linear-gradient(135deg,#9b4dff,#e247d6);color:white;font-weight:800;font-size:16px;min-height:54px}
+button:disabled{opacity:.55}
+.card{margin-top:18px;padding:20px;border:1px solid rgba(255,255,255,.11);border-radius:20px;background:var(--card);backdrop-filter:blur(12px);box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.status{white-space:pre-wrap;word-break:break-word;color:#ddd8e8}
+pre{white-space:pre-wrap;word-break:break-word;overflow:auto;background:#05050b;border-radius:14px;padding:15px;color:#ffb9c5;border:1px solid rgba(255,100,130,.18)}
+.source{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.source-main{min-width:0}.provider{font-weight:800;font-size:18px}.title{margin-top:4px;color:#ddd8e8}.small{font-size:13px;color:#8f899f;margin-top:7px}
+a.watch{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:white;background:#7c4dff;border-radius:12px;padding:11px 15px;font-weight:750;white-space:nowrap}
+.footer{text-align:center;color:#777285;font-size:13px;margin-top:38px}
+@media(max-width:600px){.hero{padding-top:55px}.hero h1{letter-spacing:-2.5px}.searchbox{border-radius:18px}.source{align-items:stretch;flex-direction:column}.watch{width:100%}.top{align-items:flex-start}.badge{font-size:13px}.brand{font-size:25px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <div class="brand">✦ AnimeCross Finder</div>
+    <div class="badge">AI Web Search</div>
+  </header>
+
+  <section class="hero">
+    <h1>Find where <span class="grad">anime</span><br>is actually watchable.</h1>
+    <p>Search an anime and let AnimeCross AI research current legal streaming pages for India.</p>
+
+    <form class="searchbox" id="form">
+      <input id="anime" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Search an anime…" required>
+      <button id="go" type="submit">Search</button>
+    </form>
+  </section>
+
+  <div id="status" class="card status">Ready. Try “One Piece”.</div>
+  <section id="results"></section>
+
+  <div class="footer">AnimeCross Finder AI · Streaming rights can change.</div>
+</main>
+
+<script>
+const WORKER="https://animecross-aimoke-4e76.scripttopinrock.workers.dev";
+const form=document.getElementById("form");
+const input=document.getElementById("anime");
+const go=document.getElementById("go");
+const statusBox=document.getElementById("status");
+const results=document.getElementById("results");
+
+function esc(v){
+  return String(v ?? "").replace(/[&<>"']/g,c=>({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  }[c]));
+}
+
+form.addEventListener("submit",async e=>{
+  e.preventDefault();
+  const anime=input.value.trim();
+  if(!anime)return;
+
+  go.disabled=true;
+  results.innerHTML="";
+  statusBox.textContent="Searching Gemini + live web…";
+
+  try{
+    const res=await fetch(WORKER+"/api/search",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({anime,country:"India"})
+    });
+
+    const data=await res.json().catch(()=>({
+      error:"Worker returned non-JSON",
+      httpStatus:res.status
+    }));
+
+    if(!res.ok || data.error){
+      statusBox.innerHTML=
+        "<b>Gemini diagnostic error</b><pre>"+
+        esc(JSON.stringify({workerHttpStatus:res.status,...data},null,2))+
+        "</pre>";
+      return;
+    }
+
+    statusBox.textContent="Search complete.";
+
+    if(!Array.isArray(data.sources) || !data.sources.length){
+      results.innerHTML='<div class="card">No confidently verified watch pages were returned.</div>';
+      return;
+    }
+
+    results.innerHTML=data.sources.map(s=>{
+      const safeUrl=typeof s.url==="string" && s.url.startsWith("https://") ? s.url : "#";
+      return `
+        <article class="card source">
+          <div class="source-main">
+            <div class="provider">${esc(s.provider||"Streaming service")}</div>
+            <div class="title">${esc(s.title||"Verified title page")}</div>
+            <div class="small">${esc(s.access||"")} ${s.note?" · "+esc(s.note):""}</div>
+          </div>
+          <a class="watch" href="${esc(safeUrl)}" target="_blank" rel="noopener noreferrer">Watch Anime →</a>
+        </article>`;
+    }).join("");
+
+  }catch(err){
+    statusBox.innerHTML="<b>Connection error</b><pre>"+esc(err?.message||err)+"</pre>";
+  }finally{
+    go.disabled=false;
+  }
+});
+</script>
+</body>
+</html>
