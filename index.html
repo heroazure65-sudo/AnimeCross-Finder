@@ -1,128 +1,54 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>AnimeCross Finder AI</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070914"><title>AnimeCross Finder</title>
 <style>
-:root{--bg:#050509;--card:rgba(10,10,18,.78);--line:rgba(185,140,255,.28);--text:#f7f4ff;--muted:#aaa6ba;--accent:#c45cff}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-body{background-image:linear-gradient(180deg,rgba(3,3,7,.42),rgba(3,3,7,.9)),url("cosmic-background.png");background-size:cover;background-position:center top;background-attachment:fixed}
-.wrap{width:min(980px,100%);margin:auto;padding:28px 18px 70px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:14px}
-.brand{font-size:clamp(25px,7vw,42px);font-weight:800;letter-spacing:-1.5px}
-.badge{border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:#d9c8ff;white-space:nowrap;background:rgba(20,12,34,.55)}
-.hero{text-align:center;padding:85px 0 32px}
-.hero h1{font-size:clamp(43px,10vw,82px);line-height:.98;letter-spacing:-4px;margin:0 auto 22px;max-width:850px}
-.grad{background:linear-gradient(90deg,#fff,#d8bfff,#c34dff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{color:var(--muted);font-size:clamp(16px,4vw,21px);max-width:700px;margin:0 auto;line-height:1.5}
-.searchbox{margin:32px auto 0;max-width:780px;padding:8px;border:1px solid var(--line);border-radius:22px;background:rgba(8,7,16,.72);backdrop-filter:blur(14px);display:flex;gap:8px}
-input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:white;padding:15px 16px;font-size:17px}
-button{border:0;border-radius:16px;padding:0 24px;background:linear-gradient(135deg,#9b4dff,#e247d6);color:white;font-weight:800;font-size:16px;min-height:54px}
-button:disabled{opacity:.55}
-.card{margin-top:18px;padding:20px;border:1px solid rgba(255,255,255,.11);border-radius:20px;background:var(--card);backdrop-filter:blur(12px);box-shadow:0 12px 40px rgba(0,0,0,.25)}
-.status{white-space:pre-wrap;word-break:break-word;color:#ddd8e8}
-pre{white-space:pre-wrap;word-break:break-word;overflow:auto;background:#05050b;border-radius:14px;padding:15px;color:#ffb9c5;border:1px solid rgba(255,100,130,.18)}
-.source{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.source-main{min-width:0}.provider{font-weight:800;font-size:18px}.title{margin-top:4px;color:#ddd8e8}.small{font-size:13px;color:#8f899f;margin-top:7px}
-a.watch{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:white;background:#7c4dff;border-radius:12px;padding:11px 15px;font-weight:750;white-space:nowrap}
-.footer{text-align:center;color:#777285;font-size:13px;margin-top:38px}
-@media(max-width:600px){.hero{padding-top:55px}.hero h1{letter-spacing:-2.5px}.searchbox{border-radius:18px}.source{align-items:stretch;flex-direction:column}.watch{width:100%}.top{align-items:flex-start}.badge{font-size:13px}.brand{font-size:25px}}
+:root{color-scheme:dark;--bg:#070914;--panel:#0e1222;--line:#252b47;--text:#f5f7ff;--muted:#9ca6c7;--cyan:#65e6ff;--violet:#9b7bff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% -10%,#182047,#070914 46%);color:var(--text);font-family:Inter,system-ui,sans-serif}
+main{width:min(900px,calc(100% - 28px));margin:auto;padding:48px 0 70px}.hero{text-align:center;margin-bottom:28px}
+.logo{font-size:clamp(34px,8vw,64px);font-weight:900;letter-spacing:-2px;background:linear-gradient(90deg,var(--cyan),#fff,var(--violet));-webkit-background-clip:text;color:transparent}
+.tag{color:var(--muted);margin-top:8px}.search{display:flex;gap:10px;background:#0e1222e8;border:1px solid var(--line);border-radius:18px;padding:8px}
+input{min-width:0;flex:1;background:transparent;border:0;outline:0;color:var(--text);font-size:17px;padding:14px}
+button{border:0;border-radius:13px;background:linear-gradient(135deg,#53dcff,#8d72ff);color:#07101d;font-weight:800;padding:0 20px;min-height:50px;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}.status{text-align:center;color:var(--muted);min-height:30px;padding:18px 0}.grid{display:grid;gap:14px}
+.card{background:linear-gradient(145deg,#12172cf2,#0a0d1bf2);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.provider{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--cyan);font-weight:800}.title{font-size:20px;font-weight:800;margin:5px 0}.meta{color:var(--muted);font-size:13px}.watch{white-space:nowrap}
+.empty{text-align:center;color:var(--muted);padding:35px 10px;border:1px dashed var(--line);border-radius:18px}
+.overlay{position:fixed;inset:0;background:#03040bd9;backdrop-filter:blur(12px);display:none;place-items:center;z-index:10}.overlay.show{display:grid}
+.transition{width:min(900px,92vw);height:min(700px,86vh);border:1px solid #31395e;border-radius:24px;overflow:hidden;position:relative;background:#050713}
+video{width:100%;height:100%;object-fit:cover}.shade{position:absolute;inset:0;background:linear-gradient(#05071333,#050713aa)}
+.count{position:absolute;inset:0;display:grid;place-items:center;text-align:center}.num{font-size:clamp(90px,22vw,180px);font-weight:900;text-shadow:0 0 35px #65e6ff88}.small{font-weight:700;color:#dce5ff;letter-spacing:2px}
+.cancel{position:absolute;right:14px;top:14px;background:#12182b;color:#fff;border:1px solid #31395e;z-index:2}
+@media(max-width:620px){main{padding-top:30px}.search{flex-direction:column}.search button{width:100%}.card{align-items:flex-start;flex-direction:column}.watch{width:100%}.watch button{width:100%}}
 </style>
 </head>
 <body>
-<main class="wrap">
-  <header class="top">
-    <div class="brand">✦ AnimeCross Finder</div>
-    <div class="badge">AI Web Search</div>
-  </header>
-
-  <section class="hero">
-    <h1>Find where <span class="grad">anime</span><br>is actually watchable.</h1>
-    <p>Search an anime and let AnimeCross AI research current legal streaming pages for India.</p>
-
-    <form class="searchbox" id="form">
-      <input id="anime" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Search an anime…" required>
-      <button id="go" type="submit">Search</button>
-    </form>
-  </section>
-
-  <div id="status" class="card status">Ready. Try “One Piece”.</div>
-  <section id="results"></section>
-
-  <div class="footer">AnimeCross Finder AI · Streaming rights can change.</div>
+<main>
+<section class="hero"><div class="logo">AnimeCross</div><div class="tag">Find verified official places to watch anime.</div></section>
+<form class="search" id="searchForm"><input id="animeInput" autocomplete="off" spellcheck="false" placeholder="Search an anime..." aria-label="Anime title"><button id="searchBtn" type="submit">SEARCH</button></form>
+<div class="status" id="status"></div><section class="grid" id="results"></section>
 </main>
-
+<div class="overlay" id="overlay" aria-hidden="true"><div class="transition">
+<button class="cancel" id="cancelBtn" type="button">CANCEL</button>
+<video id="transitionVideo" muted playsinline preload="auto"><source src="assets/watch-transition.mp4" type="video/mp4"></video>
+<div class="shade"></div><div class="count"><div><div class="num" id="countNum">6</div><div class="small">PREPARING YOUR WATCH PAGE</div></div></div>
+</div></div>
 <script>
-const WORKER="https://animecross-aimoke-4e76.scripttopinrock.workers.dev";
-const form=document.getElementById("form");
-const input=document.getElementById("anime");
-const go=document.getElementById("go");
-const statusBox=document.getElementById("status");
-const results=document.getElementById("results");
-
-function esc(v){
-  return String(v ?? "").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-
-form.addEventListener("submit",async e=>{
-  e.preventDefault();
-  const anime=input.value.trim();
-  if(!anime)return;
-
-  go.disabled=true;
-  results.innerHTML="";
-  statusBox.textContent="Searching Gemini + live web…";
-
-  try{
-    const res=await fetch(WORKER+"/api/search",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({anime,country:"India"})
-    });
-
-    const data=await res.json().catch(()=>({
-      error:"Worker returned non-JSON",
-      httpStatus:res.status
-    }));
-
-    if(!res.ok || data.error){
-      statusBox.innerHTML=
-        "<b>Gemini diagnostic error</b><pre>"+
-        esc(JSON.stringify({workerHttpStatus:res.status,...data},null,2))+
-        "</pre>";
-      return;
-    }
-
-    statusBox.textContent="Search complete.";
-
-    if(!Array.isArray(data.sources) || !data.sources.length){
-      results.innerHTML='<div class="card">No confidently verified watch pages were returned.</div>';
-      return;
-    }
-
-    results.innerHTML=data.sources.map(s=>{
-      const safeUrl=typeof s.url==="string" && s.url.startsWith("https://") ? s.url : "#";
-      return `
-        <article class="card source">
-          <div class="source-main">
-            <div class="provider">${esc(s.provider||"Streaming service")}</div>
-            <div class="title">${esc(s.title||"Verified title page")}</div>
-            <div class="small">${esc(s.access||"")} ${s.note?" · "+esc(s.note):""}</div>
-          </div>
-          <a class="watch" href="${esc(safeUrl)}" target="_blank" rel="noopener noreferrer">Watch Anime →</a>
-        </article>`;
-    }).join("");
-
-  }catch(err){
-    statusBox.innerHTML="<b>Connection error</b><pre>"+esc(err?.message||err)+"</pre>";
-  }finally{
-    go.disabled=false;
-  }
-});
+const WORKER_URL="https://animecross-aimoke-4e76.scripttopinrock.workers.dev";
+const form=document.getElementById("searchForm"),input=document.getElementById("animeInput"),button=document.getElementById("searchBtn");
+const status=document.getElementById("status"),results=document.getElementById("results"),overlay=document.getElementById("overlay");
+const video=document.getElementById("transitionVideo"),countNum=document.getElementById("countNum"),cancelBtn=document.getElementById("cancelBtn");
+let timer=null,cancelled=false;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+function render(data){results.innerHTML="";if(!data.sources?.length){results.innerHTML='<div class="empty">No confidently verified official watch pages were found.</div>';return}
+for(const s of data.sources){const card=document.createElement("article");card.className="card";card.innerHTML=`<div><div class="provider">${esc(s.provider)}</div><div class="title">${esc(s.title||data.title)}</div><div class="meta">${esc(s.access)} · ${esc(s.confidence)} confidence</div></div><div class="watch"><button type="button">▶ WATCH NOW</button></div>`;card.querySelector("button").onclick=()=>startWatch(s.url);results.appendChild(card)}}
+async function search(anime){button.disabled=true;status.textContent="Researching official watch pages…";results.innerHTML="";
+try{const r=await fetch(WORKER_URL+"/api/search",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({anime,country:"India"})});const d=await r.json();if(!r.ok)throw Error(d.error||"Search failed");status.textContent=d.cached?"Instant result from cache.":"Search complete.";render(d)}catch(e){status.textContent="Search error: "+e.message}finally{button.disabled=false}}
+function sound(){const a=new Audio("assets/mixkit-shot-light-energy-flowing-2589.wav");a.volume=.45;a.play().catch(()=>{})}
+function startWatch(url){if(!/^https:\/\//i.test(url))return;sound();cancelled=false;overlay.classList.add("show");overlay.setAttribute("aria-hidden","false");video.currentTime=0;video.play().catch(()=>{});const start=performance.now();clearInterval(timer);timer=setInterval(()=>{if(cancelled){clearInterval(timer);return}const e=(performance.now()-start)/1000;const n=Math.max(0,6-Math.floor(e));countNum.textContent=n||"GO!";if(e>=6){clearInterval(timer);location.href=url}},100)}
+cancelBtn.onclick=()=>{cancelled=true;clearInterval(timer);video.pause();overlay.classList.remove("show");overlay.setAttribute("aria-hidden","true")};
+form.onsubmit=e=>{e.preventDefault();const v=input.value.trim();if(v)search(v)};
 </script>
 </body>
 </html>
